@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int maxSumSubarray(int arr[], int n, int k) {
+    if (k > n) return -1; // Invalid case
+
+    int maxSum = 0;
+    int windowSum = 0;
+
+    // Compute sum of first window of size k
+    for (int i = 0; i < k; i++) {
+        windowSum += arr[i];
+    }
+    maxSum = windowSum;
+
+    // Slide the window
+    for (int i = k; i < n; i++) {
+        windowSum = windowSum + arr[i] - arr[i - k]; // Add next element, remove first element of previous window
+        if (windowSum > maxSum) {
+            maxSum = windowSum;
+        }
+    }
+
+    return maxSum;
+}
+
+int main() {
+    int n, k;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter the array elements:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter the subarray size k: ");
+    scanf("%d", &k);
+
+    int result = maxSumSubarray(arr, n, k);
+    if (result != -1) {
+        printf("Maximum sum of subarrays of size %d: %d\n", k, result);
+    } else {
+        printf("Invalid input: k is larger than array size.\n");
+    }
+
+    return 0;
+}
