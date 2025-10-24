@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+void firstNegativeInWindow(int arr[], int n, int k) {
+    int queue[n]; // Stores indices of negative numbers
+    int front = 0, rear = -1;
+
+    for (int i = 0; i < n; i++) {
+        // Remove indices which are out of this window
+        while (front <= rear && queue[front] < i - k + 1) {
+            front++;
+        }
+
+        // If current element is negative, add its index to the queue
+        if (arr[i] < 0) {
+            queue[++rear] = i;
+        }
+
+        // Print the first negative element for the window
+        if (i >= k - 1) {
+            if (front <= rear) {
+                printf("%d ", arr[queue[front]]);
+            } else {
+                printf("0 ");
+            }
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, k;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter the array elements:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter the window size k: ");
+    scanf("%d", &k);
+
+    if (k > n || k <= 0) {
+        printf("Invalid window size.\n");
+        return 0;
+    }
+
+    printf("First negative integer in each subarray of size %d:\n", k);
+    firstNegativeInWindow(arr, n, k);
+
+    return 0;
+}
