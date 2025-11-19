@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+enum Status {
+    SUCCESS = 10,
+    FAILURE,
+    TIMEOUT
+};
+
+int main() {
+    enum Status status;
+
+    for (status = SUCCESS; status <= TIMEOUT; status++) {
+        switch (status) {
+            case SUCCESS:
+                printf("SUCCESS = %d\n", status);
+                break;
+            case FAILURE:
+                printf("FAILURE = %d\n", status);
+                break;
+            case TIMEOUT:
+                printf("TIMEOUT = %d\n", status);
+                break;
+        }
+    }
+
+    return 0;
+}
